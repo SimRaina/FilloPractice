@@ -8,37 +8,44 @@ import com.codoid.products.fillo.Recordset;
 
 public class ExcelReader {
 	
-	ArrayList<String> row= new ArrayList<String>();
+	ArrayList<String> column= new ArrayList<String>();
 	ArrayList<String> loginValues=new ArrayList<String>();
+	ArrayList<String> infoValues=new ArrayList<String>();
 	public String filepath;
 	
 	
-	public ArrayList<String> getData(String filepath,String excelName,String sheetName, int rowNumber, String name) throws FilloException {
+	public ArrayList<String> getData(String filepath,String excelName,String sheetName, int rowNumber) throws FilloException {
 		this.filepath=filepath;
 		Fillo fillo=new Fillo();
 		String filepath1 = filepath+excelName;
 	
 		Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
 		
-		//String strQuery="Select * from" +" "+sheetName+" "+ "where TC='"+rowNumber+"' "; // Writing SQL Query
-		String strQuery1 = ("Select * from "+ sheetName);
-		String strQuery = "Select * from " + sheetName+" where TC='"+rowNumber+"' and name='"+name+"'";
-		String strQuery2="Select * from "+ sheetName+ " where name like '%am'";
+		// Select query with Where condition
+		String strQuery  ="Select * from" +" "+sheetName+" "+ "where TC='"+rowNumber+"' "; // Writing SQL Query
+		
+		// Select query with Where Method
+		  String strQuery1 = ("Select * from "+ sheetName);
 		//Recordset recordset=connection.executeQuery(strQuery1).where("TC='"+rowNumber+"'"); // Execute Query and store result in Recordset
-         Recordset recordset = connection.executeQuery(strQuery2);
-		while(recordset.next()){  // Condition till recordset has values
+     
+		 Recordset recordset = connection.executeQuery(strQuery1);
+		 
+		 int size = recordset.getCount(); // get row count
+	     System.out.println(size);
+		 
+		 while(recordset.next()){  // Condition till recordset has values
         
-			row=recordset.getFieldNames(); // get column names
-			System.out.println(row);
+			column=recordset.getFieldNames(); // get column names
           
-			for (int i=0;i<row.size();i++) {  // run for loop for desired column values
-                loginValues.add(recordset.getField(row.get(i)));  // add row values to ArrayList
+			for (int i=0;i<column.size();i++) {  // run for loop for desired column values
+                loginValues.add(recordset.getField(column.get(i)));  // add row values to ArrayList
             }
         } 
 		recordset.close();
 		connection.close();
 		return loginValues;
     }
+	
 	
 	public void updateData(String filepath,String excelName,String sheetName, String result, int rowNumber) throws FilloException {
 		this.filepath=filepath;
@@ -63,6 +70,34 @@ public class ExcelReader {
 		connection.executeUpdate(strQuery1);
 		connection.close();
     }
+	
+	public ArrayList<String> getData2(String filepath, String excelName, String sheetName, int rowNumber, String name) throws FilloException{
+		
+		this.filepath=filepath;
+		Fillo fillo=new Fillo();
+		String filepath1 = filepath+excelName;
+	
+		Connection connection=fillo.getConnection(filepath1);  
+		
+		// Multiple Where conditions
+		String strQuery2 = "Select * from " + sheetName+" where TC='"+rowNumber+"' and name='"+name+"'";
+		
+		// Like Operator
+		//String strQuery3 ="Select * from "+ sheetName+ " where name like 'P%tr'";
+		Recordset recordset = connection.executeQuery(strQuery2);
+		
+		while(recordset.next()){                                                 
+        
+			column=recordset.getFieldNames(); 
+          
+			for (int i=0;i<column.size();i++) {  
+                infoValues.add(recordset.getField(column.get(i))); 
+            }
+        } 
+		recordset.close();
+		connection.close();
+		return infoValues;		
+	}
 }
 
 

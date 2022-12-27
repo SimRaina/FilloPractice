@@ -19,19 +19,20 @@
   </properties>
 
   <dependencies>
-<dependency>
-  <groupId>com.codoid.products</groupId>
-  <artifactId>fillo</artifactId>
-  <version>1.22</version>
-</dependency>
+			<dependency>
+ 				 <groupId>com.codoid.products</groupId>
+  				 <artifactId>fillo</artifactId>
+ 				 <version>1.22</version>
+			</dependency>
 
-<dependency>
-    <groupId>com.codoid.products</groupId>
-    <artifactId>gyra-client</artifactId>
-    <version>1.0</version>
-</dependency>
+			<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+			<dependency>
+ 				   <groupId>org.testng</groupId>
+    			   <artifactId>testng</artifactId>
+    			   <version>7.6.0</version>
+    			   <scope>test</scope>
+			</dependency>
   </dependencies>
-
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

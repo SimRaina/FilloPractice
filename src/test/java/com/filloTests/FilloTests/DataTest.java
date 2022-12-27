@@ -2,6 +2,8 @@ package com.filloTests.FilloTests;
 
 import java.util.ArrayList;
 
+import org.testng.annotations.Test;
+
 import com.codoid.products.exception.FilloException;
 
 public class DataTest {
@@ -13,28 +15,34 @@ public class DataTest {
 	String sheetName = "login";
 	String fileName =  "data.xlsx";
 
-	public static void main(String args[]) throws FilloException {
-		
-		DataTest dt = new DataTest();
-		dt.test();
-		
+	@Test(enabled=true)
+	public void getTest() throws FilloException {
+		excel = new ExcelReader();
+	
+		// calling getData method
+		login_cred = excel.getData(filepath, fileName, sheetName, 1);
+		System.out.println(login_cred.get(0)+ ", " + login_cred.get(1) + ", " + login_cred.get(2));
 	}
 	
-	public void test() throws FilloException {
+	@Test(enabled=false)
+	public void updateTest() throws FilloException{
 		excel = new ExcelReader();
-		/* login_cred = excel.getData(filepath, fileName, sheetName, 1);
-		System.out.println(login_cred.get(0));
-		System.out.println(login_cred.get(1));
 		
+		// calling updateData method
 		excel.updateData(filepath, fileName, sheetName, "Pass", 1);
+				
 		login_cred = excel.getData(filepath, fileName, sheetName, 1);
-		System.out.println(login_cred.get(2));
+		System.out.println(login_cred.get(0)+ ", " + login_cred.get(1) + ", " + login_cred.get(2) + ", " + login_cred.get(3));
+	}
+	
+	@Test(enabled=false)
+	public void insertTest() throws FilloException{
+		excel = new ExcelReader();
 		
-		//excel.insertData(filepath, fileName, "info"); */
-		info = excel.getData(filepath, fileName, "info", 1, "Piotr");
-	    System.out.println(info.get(0));
-		System.out.println(info.get(1));
-		System.out.println(info.get(2));
+		excel.insertData(filepath, fileName, "info");
+		
+		info = excel.getData2(filepath, fileName, "info", 1, "Piotr");
+		System.out.println(info.get(0)+ ", " + info.get(1) + ", " + info.get(2));	
 	}
 
 }
