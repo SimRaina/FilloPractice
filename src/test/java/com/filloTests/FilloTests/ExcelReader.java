@@ -19,21 +19,19 @@ public class ExcelReader {
 		Fillo fillo=new Fillo();
 		String filepath1 = filepath+excelName;
 	
-		Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
+	    Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
 		
 		// Select query with Where condition
-		String strQuery  ="Select * from" +" "+sheetName+" "+ "where TC='"+rowNumber+"' "; // Writing SQL Query
+		String strQuery  ="Select * from "+sheetName+" where TC="+rowNumber+" "; // Writing SQL Query
 		
 		// Select query with Where Method
 		  String strQuery1 = ("Select * from "+ sheetName);
-		//Recordset recordset=connection.executeQuery(strQuery1).where("TC='"+rowNumber+"'"); // Execute Query and store result in Recordset
+		  
+		// Recordset recordset=connection.executeQuery(strQuery1).where("TC="+rowNumber); // Execute Query and store result in Recordset
      
-		 Recordset recordset = connection.executeQuery(strQuery1);
+		 Recordset recordset = connection.executeQuery(strQuery);
 		 
-		 int size = recordset.getCount(); // get row count
-	     System.out.println(size);
-		 
-		 while(recordset.next()){  // Condition till recordset has values
+		 while(recordset.next()){  // Condition till recordset has rows
         
 			column=recordset.getFieldNames(); // get column names
           
@@ -54,7 +52,7 @@ public class ExcelReader {
 	
 		Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
 		
-		String strQuery="UPDATE" +" "+sheetName+" "+ "SET Result='"+result+"' " + "where TC='"+rowNumber+"' "; // Writing SQL Query
+		String strQuery="UPDATE "+sheetName+ " SET Result='"+result+"' " + "where TC="+rowNumber+" "; 
 		connection.executeUpdate(strQuery);
 		connection.close();
     }
@@ -66,7 +64,7 @@ public class ExcelReader {
 	
 		Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
 		
-		String strQuery1="INSERT INTO "+ sheetName + "(TC,Name,Country) VALUES('1','Piotr','PL')";
+		String strQuery1="INSERT INTO "+ sheetName + "(TC,Name,Country) VALUES(2,'Sam','US')";
 		connection.executeUpdate(strQuery1);
 		connection.close();
     }
@@ -80,11 +78,11 @@ public class ExcelReader {
 		Connection connection=fillo.getConnection(filepath1);  
 		
 		// Multiple Where conditions
-		String strQuery2 = "Select * from " + sheetName+" where TC='"+rowNumber+"' and name='"+name+"'";
+		String strQuery2 = "Select * from " + sheetName+" where TC="+rowNumber+" and Name='"+name+"'";
 		
 		// Like Operator
-		//String strQuery3 ="Select * from "+ sheetName+ " where name like 'P%tr'";
-		Recordset recordset = connection.executeQuery(strQuery2);
+		String strQuery3 ="Select * from "+ sheetName+ " where name like 'P%'";
+		Recordset recordset = connection.executeQuery(strQuery3);
 		
 		while(recordset.next()){                                                 
         

@@ -5,7 +5,7 @@
     <classes>
       <class name="com.filloTests.FilloTests.DataTest">
         <methods>
-          <include name="insertTest"/>
+          <include name="getTest"/>
         </methods>
       </class> <!-- com.filloTests.FilloTests.DataTest -->
     </classes>

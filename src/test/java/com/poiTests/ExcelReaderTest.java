@@ -21,7 +21,7 @@ public class ExcelReaderTest {
         try {
             fis = new FileInputStream(fullpath); // this might give FileNotFoundException
             workbook = new XSSFWorkbook(fis); // this might give IOException
-            sheet = workbook.getSheet(sheetname); // fetch the existing sheet
+            sheet = workbook.getSheet(sheetname); // fetch the existing shee 
             rowCount = sheet.getLastRowNum(); // 0 - 4; 0 is the row header, 1 to 4 has the data
 
             columnCount = sheet.getRow(0).getLastCellNum(); // 1 to 3
