@@ -19,13 +19,13 @@ public class ExcelReader {
 		Fillo fillo=new Fillo();
 		String filepath1 = filepath+excelName;
 	
-	    Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
+	        Connection connection=fillo.getConnection(filepath1);  // Setting connection with the Excel File
 		
 		// Select query with Where condition
 		String strQuery  ="Select * from "+sheetName+" where TC="+rowNumber+" "; // Writing SQL Query
 		
 		// Select query with Where Method
-		  String strQuery1 = ("Select * from "+ sheetName);
+		String strQuery1 = ("Select * from "+ sheetName);
 		  
 		// Recordset recordset=connection.executeQuery(strQuery1).where("TC="+rowNumber); // Execute Query and store result in Recordset
      
@@ -36,7 +36,7 @@ public class ExcelReader {
 			column=recordset.getFieldNames(); // get column names
           
 			for (int i=0;i<column.size();i++) {  // run for loop for desired column values
-                loginValues.add(recordset.getField(column.get(i)));  // add row values to ArrayList
+                	loginValues.add(recordset.getField(column.get(i)));  // add row values to ArrayList
             }
         } 
 		recordset.close();
@@ -89,7 +89,7 @@ public class ExcelReader {
 			column=recordset.getFieldNames(); 
           
 			for (int i=0;i<column.size();i++) {  
-                infoValues.add(recordset.getField(column.get(i))); 
+                		infoValues.add(recordset.getField(column.get(i))); 
             }
         } 
 		recordset.close();
